@@ -1,4 +1,4 @@
-import re
+import json
 import requests
 from bs4 import BeautifulSoup
 from difflib import SequenceMatcher
@@ -84,9 +84,8 @@ def main():
         for building in ris.get_buildings(campus)
     ]
 
-    from pprint import pprint
-
-    pprint(room_infos)
+    with open("data/room_ids.txt", "w") as outfile:
+        json.dump(room_infos, outfile)
 
 
 if __name__ == "__main__":
