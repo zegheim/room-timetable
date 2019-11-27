@@ -1,7 +1,6 @@
 import json
 import requests
 from bs4 import BeautifulSoup
-from difflib import SequenceMatcher
 
 
 class RoomIdScraper(object):
