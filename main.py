@@ -47,16 +47,6 @@ class RoomIdScraper(object):
              <a href="/room/room_id_1">Room 1</a>
              <span class="views-field views-field-field-capacity">Capacity: 64</span>
              <span class="views-field views-field-field-allocated">1. Centrally Allocated Space</span></li>
-             </ul></div>,
-             <div class="item-list"> <h3>Building 2</h3>
-             <ul><li class="views-row views-row-1 views-row-odd views-row-first views-row-last">
-             <a href="/room/room_id_2">Room 2</a>
-             <span class="views-field views-field-field-capacity">Capacity: 32</span>
-             <span class="views-field views-field-field-allocated">1. Centrally Allocated Space</span></li>
-             <li class="views-row views-row-1 views-row-odd views-row-first views-row-last">
-             <a href="/room/room_id_3">Room 3</a>
-             <span class="views-field views-field-field-capacity">Capacity: 16</span>
-             <span class="views-field views-field-field-allocated">1. Centrally Allocated Space</span></li>
              </ul></div>]
              
         """
@@ -65,6 +55,19 @@ class RoomIdScraper(object):
         return soup.find_all("div", class_="item-list")
 
     def get_rooms(self, building):
+        """Method to return all room names and ids in a given building.
+        
+        Args:
+            building (bs4.element.Tag): building whose rooms we are interested in.
+        
+        Returns:
+            A tuple of building name (str) and a dictionary of room id-name pairs.
+
+        Example:
+            >>> RoomIdScraper().get_rooms(building1)
+            ("Building 1", {"room_id_1": "Room 1", "room_id_2": "Room 2"})
+        """
+
         name = building.find("h3").string
         rooms = {
             room.get("href").replace("/room/", ""): room.string
