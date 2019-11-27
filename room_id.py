@@ -1,6 +1,7 @@
 import json
 import requests
 from bs4 import BeautifulSoup
+from collections import ChainMap
 
 
 class RoomIdScraper(object):
@@ -78,6 +79,7 @@ class RoomIdScraper(object):
 
 def main():
     ris = RoomIdScraper()
+
     room_infos = [
         ris.get_rooms(building)
         for campus in ris.get_campuses()
@@ -85,7 +87,7 @@ def main():
     ]
 
     with open("data/room_ids.txt", "w") as outfile:
-        json.dump(room_infos, outfile)
+        json.dump(dict(ChainMap(*room_infos)), outfile)
 
 
 if __name__ == "__main__":
