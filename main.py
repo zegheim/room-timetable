@@ -61,11 +61,11 @@ class RoomIdScraper(object):
             building (bs4.element.Tag): building whose rooms we are interested in.
         
         Returns:
-            A tuple of building name (str) and a dictionary of room id-name pairs.
+            A dictionary comprising building name (str) and dictionary of room id-name pairs.
 
         Example:
             >>> RoomIdScraper().get_rooms(building1)
-            ("Building 1", {"room_id_1": "Room 1", "room_id_2": "Room 2"})
+            {"building": Building 1", "rooms": {"room_id_1": "Room 1", "room_id_2": "Room 2"}}
         """
 
         name = building.find("h3").string
@@ -73,7 +73,7 @@ class RoomIdScraper(object):
             room.get("href").replace("/room/", ""): room.string
             for room in building.find_all("a")
         }
-        return name, rooms
+        return {"building": name, "rooms": rooms}
 
 
 def main():
